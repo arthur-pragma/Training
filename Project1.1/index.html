@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        body {
+            width: 100vw;
+            height: 100vh;
+            padding: 0;
+            margin: 0;
+
+            --status-passed: #32e2b1;
+            --status-pending: #FF9800;
+            --status-failed: #e6756d;
+            --status-running: #2196F3;
+            --status-running-lighten: #54aff7;
+            --status-passed-lighten: #50efc2;
+
+            --row-height: 60px;
+        }
+
+        .title {
+            font-weight: 600;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: repeat(6, var(--row-height));
+        }
+
+        .circle {
+            position: relative;
+            float: left;
+        }
+
+        .status-text {
+            content: '';
+            background: url(ic_warning_black_18px.svg) no-repeat top left;
+        }
+
+        .row {
+            position: relative;
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+        }
+
+        .progress {
+            width: 100%;
+            height: 5px;
+            padding: 5px 0;
+            background-color: #ddd;
+            position: absolute;
+            left: 5px;
+            right: 0;
+            z-index: -1;
+        }
+
+        .circle:before {
+            content: '';
+            width: 30px;
+            height: 30px;
+            border: 5px solid #ddd;
+            background: #ddd;
+            display: block;
+            text-align: center;
+            border-radius: 50%;
+        }
+
+        .meter {
+            display: block;
+            height: 100%;
+            border-radius: 5px;
+        }
+
+        [data-title]:after {
+            content: attr(data-title);
+        }
+
+        [data-progress="0"] {
+            width: 0%;
+        }
+
+        [data-progress="25"] {
+            width: 25%;
+        }
+
+        [data-progress="50"] {
+            width: 50%;
+        }
+
+        [data-progress="75"] {
+            width: 75%;
+        }
+
+        [data-progress="95"] {
+            width: 95%;
+        }
+
+        [data-progress="100"] {
+            width: 100%;
+        }
+
+        .status-pending>[data-title] {
+            color: var(--status-pending);
+        }
+
+        .status-running>[data-title] {
+            color: var(--status-running);
+        }
+
+        .status-failed>[data-title] {
+            color: var(--status-failed);
+        }
+
+        .status-passed>[data-title] {
+            color: var(--status-passed);
+        }
+
+        .status-pending>.icon:before {
+            background: url(ic_warning_white_18px.svg) var(--status-pending) no-repeat center;
+        }
+
+        .status-running>.icon:before {
+            background: url(ic_sync_white_18px.svg) var(--status-running) no-repeat center;
+        }
+
+        .status-passed>.icon:before {
+            background: url(ic_check_white_18px.svg) var(--status-passed) no-repeat center;
+        }
+
+        .status-failed>.icon:before {
+            background: url(ic_error_outline_white_18px.svg) var(--status-failed) no-repeat center;
+        }
+
+        .status-pending>.progress>.meter {
+            background-color: var(--status-pending);
+        }
+
+        .status-running>.progress>.meter {
+            background-color: var(--status-running);
+        }
+
+        .status-failed>.progress>.meter {
+            background-color: var(--status-failed);
+        }
+
+        .status-passed>.progress>.meter {
+            background-color: var(--status-passed);
+        }
+
+        .status-running>.progress>.meter {
+            background: repeating-linear-gradient( -45deg,
+            var(--status-running-lighten),
+            var(--status-running-lighten) 5px,
+            var(--status-running) 5px,
+            var(--status-running) 10px);
+        }
+
+        .status-passed>.progress>.meter {
+            background: repeating-linear-gradient( -45deg,
+            var(--status-passed-lighten),
+            var(--status-passed-lighten) 5px,
+            var(--status-passed) 5px,
+            var(--status-passed) 10px);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="grid">
+
+        <div class="row">
+            <div class="title" data-title="Task1"></div>
+        </div>
+
+        <div class="row">
+            <div class="title" data-title="Task2"></div>
+        </div>
+
+        <div class="row">
+            <div class="title" data-title="Task3"></div>
+        </div>
+
+        <div class="row">
+            <div class="title" data-title="Status"></div>
+        </div>
+
+
+        <div class="row status-pending">
+            <div class="circle icon"></div>
+            <div class="progress">
+                <span class="meter" data-progress="0"></span>
+            </div>
+        </div>
+
+        <div class="row status-pending">
+            <div class="circle"></div>
+            <div class="progress">
+                <span class="meter" data-progress="0"></span>
+            </div>
+        </div>
+
+        <div class="row status-pending">
+            <div class="circle"></div>
+        </div>
+
+        <div class="row status-pending">
+            <span data-title="Pending"></span>
+        </div>
+
+        <div class="row status-running">
+            <div class="circle icon"></div>
+            <div class="progress">
+                <span class="meter" data-progress="95"></span>
+            </div>
+        </div>
+
+        <div class="row status-running">
+            <div class="circle"></div>
+            <div class="progress">
+                <span class="meter" data-progress="0"></span>
+            </div>
+        </div>
+
+        <div class="row status-running">
+            <div class="circle"></div>
+        </div>
+
+        <div class="row status-running">
+            <div data-title="Running"></div>
+        </div>
+
+        <div class="row status-passed">
+            <div class="circle icon"></div>
+            <div class="progress">
+                <span class="meter" data-progress="100"></span>
+            </div>
+        </div>
+        <div class="row status-passed">
+            <div class="circle icon"></div>
+            <div class="progress">
+                <span class="meter" data-progress="100"></span>
+            </div>
+        </div>
+        <div class="row status-passed">
+            <div class="circle icon"></div>
+        </div>
+
+        <div class="row status-passed">
+            <div data-title="Passed"></div>
+        </div>
+
+        <div class="row status-failed">
+            <div class="circle icon"></div>
+            <div class="progress">
+                <span class="meter" data-progress="0"></span>
+            </div>
+        </div>
+
+        <div class="row status-failed">
+            <div class="circle"></div>
+            <div class="progress">
+                <span class="meter" data-progress="0"></span>
+            </div>
+        </div>
+
+        <div class="row status-failed">
+            <div class="circle"></div>
+        </div>
+
+        <div class="row status-failed">
+            <div data-title="Failed"></div>
+        </div>
+
+        <div class="row status-passed">
+            <div class="circle icon"></div>
+            <div class="progress">
+                <span class="meter" data-progress="100"></span>
+            </div>
+        </div>
+
+        <div class="row status-passed">
+            <div class="circle icon"></div>
+            <div class="progress">
+                <span class="meter" data-progress="100"></span>
+            </div>
+        </div>
+
+        <div class="row status-passed">
+            <div class="circle icon"></div>
+        </div>
+
+        <div class="row status-passed">
+            <div data-title="Passed"></div>
+        </div>
+    </div>
+</body>
+
+</html>
