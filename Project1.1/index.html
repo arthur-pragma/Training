@@ -120,7 +120,11 @@
 
         .status-passed>[data-title] {
             color: var(--status-passed);
-        }
+        }  
+
+        svg.icon-check {
+            fill: var(--status-passed) !important;
+        }     
 
         .status-pending>.icon:before {
             background: url(ic_warning_white_18px.svg) var(--status-pending) no-repeat center;
@@ -211,6 +215,8 @@
         </div>
 
         <div class="row status-pending">
+            <object data="ic_warning_white_18px.svg" type="image/svg+xml">
+            </object>
             <span data-title="Pending"></span>
         </div>
 
@@ -233,6 +239,8 @@
         </div>
 
         <div class="row status-running">
+            <object data="ic_sync_white_18px.svg" type="image/svg+xml">
+            </object>
             <div data-title="Running"></div>
         </div>
 
@@ -253,6 +261,8 @@
         </div>
 
         <div class="row status-passed">
+            <object data="ic_check_white_18px.svg" type="image/svg+xml">
+            </object>
             <div data-title="Passed"></div>
         </div>
 
@@ -275,6 +285,8 @@
         </div>
 
         <div class="row status-failed">
+            <object data="ic_error_outline_white_18px.svg" type="image/svg+xml">
+            </object>
             <div data-title="Failed"></div>
         </div>
 
@@ -297,6 +309,8 @@
         </div>
 
         <div class="row status-passed">
+            <object class="status-passed-svg" data="ic_check_white_18px.svg" type="image/svg+xml">
+            </object>
             <div data-title="Passed"></div>
         </div>
     </div>
